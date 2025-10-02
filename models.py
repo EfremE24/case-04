@@ -1,15 +1,15 @@
-from typing import Optional
-from datetime import datetime
 from pydantic import BaseModel, Field, EmailStr
+from datetime import datetime
+from typing import Optional
 
 class SurveySubmission(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     email: EmailStr
     age: int = Field(..., ge=13, le=120)
-    consent: bool = True
-    rating: int = Field(..., ge=1, le=5)
-    comments: Optional[str] = Field(None, max_length=1000)
-    source: str = "other"
+    consent: Optional[bool] = None
+    rating: Optional[int] = None
+    feedback: Optional[str] = None
+    source: Optional[str] = None
     user_agent: Optional[str] = None
     submission_id: Optional[str] = None
 
@@ -19,7 +19,7 @@ class StoredSurveyRecord(BaseModel):
     age: str
     consent: bool
     rating: int
-    comments: Optional[str] = None
+    feedback: Optional[str] = None
     source: str
     user_agent: Optional[str] = None
     submission_id: str
